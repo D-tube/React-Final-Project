@@ -9,7 +9,7 @@ const HelloWorldApp = () => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-      <Text>Facial Editor!</Text>
+      <Text>Facial Editor!!</Text>
     </View>
   );
 };
