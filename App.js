@@ -9,13 +9,13 @@ const HelloWorldApp = () => {
     <View style={styles.centered}>
       <Text style={styles.title}>Facial Editor</Text>
       <View style={styles.space1} />
-      <Button
-        style={styles.button}
-        onPress={takePicture}
-        title="Take Picture"
-      />
-      <View style={styles.space2} />
-      <Button style={styles.button} onPress={selectFile} title="Select File" />
+
+      <TouchableOpacity style={styles.button} onPress={takePicture}>
+        <Text style={styles.buttonText}>Take Picture</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={selectFile}>
+        <Text style={styles.buttonText}>Select File</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -32,10 +32,10 @@ const styles = StyleSheet.create({
     color: '#000000',
   },
   button: {
-    color: '#51BAC9',
-    marginTop: 20,
-    marginBottom: 20,
-    height: 100,
+    backgroundColor: '#51BAC9',
+    marginTop: 10,
+    marginBottom: 10,
+    height: 50,
   },
   buttonText: {
     color: '#ffffff',
@@ -46,10 +46,6 @@ const styles = StyleSheet.create({
   space1: {
     width: 1,
     height: 200,
-  },
-  space2: {
-    width: 1,
-    height: 20,
   },
 });
 export default HelloWorldApp;
