@@ -1,5 +1,6 @@
 import React from 'react';
-import {Button, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { Button } from 'react-bootstrap';
 
 const takePicture = () => {};
 const selectFile = () => {};
