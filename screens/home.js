@@ -8,10 +8,12 @@ import {
   View,
 } from 'react-native';
 
-let takePicture = () => {};
-const selectFile = () => {};
+const HelloWorldApp = ({navigation}) => {
+  const takePicture = () => {
+    navigation.navigate('Camera');
+  };
+  const selectFile = () => {};
 
-const HelloWorldApp = () => {
   return (
     <View style={styles.centered}>
       <Text style={styles.title}>Facial Editor</Text>

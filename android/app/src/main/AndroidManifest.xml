@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.reactnativefinalproject">
+          xmlns:tools="http://schemas.android.com/tools" package="com.reactnativefinalproject">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- Required -->
@@ -7,7 +7,7 @@
 
     <!-- Include this only if you are planning to use the camera roll -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage"/>
 
     <!-- Include this only if you are planning to use the microphone for video recording -->
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
