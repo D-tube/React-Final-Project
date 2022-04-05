@@ -7,12 +7,25 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import DocumentPicker from '@babel/core';
 
 const HelloWorldApp = ({navigation}) => {
   const takePicture = () => {
     navigation.navigate('Camera');
   };
-  const selectFile = () => {};
+  const selectFile = async () => {
+    try {
+      const res = await DocumentPicker.pick({
+        type: [DocumentPicker.types.images],
+      });
+      //console.log(res.uri, res.type, res.name, res.size);
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+      } else {
+        throw err;
+      }
+    }
+  };
 
   return (
     <View style={styles.centered}>
