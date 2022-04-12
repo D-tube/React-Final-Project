@@ -8,20 +8,26 @@ import {
   View,
 } from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 
 const HelloWorldApp = ({navigation}) => {
   const takePicture = () => {
-    navigation.navigate('Camera');
+    ImagePicker.openCamera({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then(image => {
+      console.log(image);
+    });
   };
 
   const selectFile = () => {
-    let options = {
-      mediaType: 'photo',
-      quality: 1,
-      includeBase64: true,
-    };
-    launchImageLibrary(options, response => {
-      console.log(response.assets);
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then(image => {
+      console.log(image);
     });
   };
 
