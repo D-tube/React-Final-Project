@@ -7,24 +7,22 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import DocumentPicker from '@babel/core';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 const HelloWorldApp = ({navigation}) => {
   const takePicture = () => {
     navigation.navigate('Camera');
   };
-  const selectFile = async () => {
-    try {
-      const res = await DocumentPicker.pick({
-        type: [DocumentPicker.types.images],
-      });
-      //console.log(res.uri, res.type, res.name, res.size);
-    } catch (err) {
-      if (DocumentPicker.isCancel(err)) {
-      } else {
-        throw err;
-      }
-    }
+
+  const selectFile = () => {
+    let options = {
+      mediaType: 'photo',
+      quality: 1,
+      includeBase64: true,
+    };
+    launchImageLibrary(options, response => {
+      console.log(response.assets);
+    });
   };
 
   return (
