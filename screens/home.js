@@ -13,6 +13,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
 
 const HelloWorldApp = ({navigation}) => {
+  var test;
   const [image, setImage] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [transferred, setTransferred] = useState(0);
@@ -25,6 +26,8 @@ const HelloWorldApp = ({navigation}) => {
     }).then(image => {
       console.log(image);
       setImage(image);
+      test = image.path;
+      uploadImage();
     });
   };
 
@@ -33,18 +36,18 @@ const HelloWorldApp = ({navigation}) => {
       width: 300,
       height: 400,
       cropping: true,
-    }).then(image => {
+    }).then(async image => {
       console.log(image);
-
-      //  uploadImage();
+      setImage(image);
+      test = image.path;
+      uploadImage();
     });
   };
 
   const uploadImage = async () => {
-    setImage(image);
-    const filename = '5547cd9c-337c-48c4-bdeb-1cbb498c5da4.jpg';
-    const uploadUri =
-      'file:///storage/emulated/0/Android/data/com.reactnativefinalproject/files/Pictures/e23034b3-cdfd-4e61-a51e-c33ebfbbd751.jpg';
+    const uri = test;
+    const filename = uri.substring(uri.lastIndexOf('/') + 1);
+    const uploadUri = uri;
 
     setUploading(true);
     setTransferred(0);
@@ -54,7 +57,7 @@ const HelloWorldApp = ({navigation}) => {
     //set progress state
     task.on('state_changed', snapshot => {
       setTransferred(
-          Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 10000,
+        Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 10000,
       );
     });
     try {
@@ -65,8 +68,8 @@ const HelloWorldApp = ({navigation}) => {
     setUploading(false);
 
     Alert.alert(
-        'Photo uploaded!',
-        'your photo has been uploaded to firebase coloud storage!',
+      'Photo uploaded!',
+      'your photo has been uploaded to firebase coloud storage!',
     );
 
     setImage(null);
