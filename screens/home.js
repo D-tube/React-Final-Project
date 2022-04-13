@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
+  Alert,
   Button,
   Image,
   StyleSheet,
@@ -9,8 +10,13 @@ import {
 } from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import ImagePicker from 'react-native-image-crop-picker';
+import storage from '@react-native-firebase/storage';
 
 const HelloWorldApp = ({navigation}) => {
+  const [image, setImage] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [transferred, setTransferred] = useState(0);
+
   const takePicture = () => {
     ImagePicker.openCamera({
       width: 300,
@@ -18,6 +24,7 @@ const HelloWorldApp = ({navigation}) => {
       cropping: true,
     }).then(image => {
       console.log(image);
+      setImage(image);
     });
   };
 
@@ -28,9 +35,42 @@ const HelloWorldApp = ({navigation}) => {
       cropping: true,
     }).then(image => {
       console.log(image);
+
+      //  uploadImage();
     });
   };
 
+  const uploadImage = async () => {
+    setImage(image);
+    const filename = '5547cd9c-337c-48c4-bdeb-1cbb498c5da4.jpg';
+    const uploadUri =
+      'file:///storage/emulated/0/Android/data/com.reactnativefinalproject/files/Pictures/e23034b3-cdfd-4e61-a51e-c33ebfbbd751.jpg';
+
+    setUploading(true);
+    setTransferred(0);
+
+    const task = storage().ref(filename).putFile(uploadUri);
+
+    //set progress state
+    task.on('state_changed', snapshot => {
+      setTransferred(
+          Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 10000,
+      );
+    });
+    try {
+      await task;
+    } catch (e) {
+      console.error(e);
+    }
+    setUploading(false);
+
+    Alert.alert(
+        'Photo uploaded!',
+        'your photo has been uploaded to firebase coloud storage!',
+    );
+
+    setImage(null);
+  };
   return (
     <View style={styles.centered}>
       <Text style={styles.title}>Facial Editor</Text>
